@@ -1,0 +1,91 @@
+.service-block-container {
+   display: flex;
+   justify-content: center;
+}
+
+.service-block {
+   min-width: 180px;
+   width: 180px;
+   height: 200px;
+   position: relative;
+   transition: all 0.3s ease-in-out;
+   overflow: hidden;
+   display: flex;
+   justify-content: center;
+   text-align: center;
+   background-color: #fff;
+   color: #666;
+   border: 1px solid #ccc;
+   margin-bottom: 30px;
+   padding: 0 10px;
+}
+
+.service-underlay {
+   position: absolute;
+   height: 60px;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   background-color: rgb(226, 226, 226);
+   padding-top: 18px;
+   transition: all 0.3s ease-in-out;
+}
+
+.service-icon {
+   position: absolute;
+   top: 30px;
+   left:0; 
+   right: 0;
+   font-size: 30px;
+   transition: all 0.3s ease-in-out;
+   color: #737373;
+}
+
+.service-name {
+   margin: 0 auto;
+   display: block;
+   text-transform: Capitalize;
+}
+
+.service-desc {
+   display: block;
+   font-size: 12px;
+   margin-top: 75px;
+}
+
+.service-underlay .cta {
+   margin-top: 115px;
+   display: inline-block;
+   color: #fff;
+   font-size: 14px;
+}
+
+.service-block:hover {
+   transform: scale(1.1);
+   cursor: pointer;
+   border: 1px solid #141b41;
+}
+
+.service-block:hover .service-underlay {
+   height: 200px;
+   background-color: #141b41;
+}
+
+.service-block:hover .service-icon {
+   color: #fff;
+   transform: scale(1.5);
+   top: 80px;
+}
+
+.service-block:hover .service-name {
+   color: #fff;
+   font-weight: bold;
+}
+
+.service-block:hover .service-desc {
+   display: none;
+}
+
+.service-block .service-underlay .cta:hover {
+   text-decoration: none;
+}
