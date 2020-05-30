@@ -22,7 +22,7 @@ html {
   outline: 0;
   background: none;
   padding: 0 10px;
-  width: 450px;
+  width: 300px;
   caret-color: red;
   line-height: 40px;
   transition: width 0.4s linear;
