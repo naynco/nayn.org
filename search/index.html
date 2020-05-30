@@ -22,16 +22,19 @@ document.form.submit();
 }
 
 function chg(){
-  document.getElementById("q").value = document.getElementById("qt").value + " -site:trthaber.com -site:memurlar.net -site:yeniasir.com.tr -site:t24.com.tr -site:haber7.com -site:sondakika.com -site:yenisafak.com -site:posta.com.tr -site:milligazete.com.tr -site:birgun.net -site:yeniakit.com.tr -site:internethaber.com -site:ensonhaber.com -site:mynet.com -site:star.com.tr -site:takvim.com.tr -site:gazeteduvar.com.tr -site:haberturk.com -site:sozcu.com.tr -site:haberler.com -site:odatv.com -site:hurriyet.com.tr -site:milliyet.com.tr -site:sabah.com.tr -site:cumhuriyet.com.tr";
+  document.getElementById("q").value = document.getElementById("qt").value + " -site:trthaber.com -site:memurlar.net -site:yeniasir.com.tr -site:t24.com.tr -site:haber7.com -site:sondakika.com -site:yenisafak.com -site:posta.com.tr -site:milligazete.com.tr -site:birgun.net -site:yeniakit.com.tr -site:internethaber.com -site:ensonhaber.com -site:mynet.com -site:star.com.tr -site:takvim.com.tr -site:gazeteduvar.com.tr -site:haberturk.com -site:sozcu.com.tr -site:haberler.com -site:odatv.com -site:hurriyet.com.tr -site:milliyet.com.tr -site:sabah.com.tr -site:cumhuriyet.com.tr -site:cnnturk.com";
 }
   </script>
 </head>
+
 <body>
-  <h1>Arındırılmış Arama Yolu</h1>
+  <h1>Temiz İçerik Arama Motoru!</h1>
   <form method="get" action="https://www.google.com/search" target="_blank">
+      <h3>Haber Sitelerinin Lafı Gereksiz Uzatmalarından Bıktınız mı?</h3>
       <input name="q" id="q" type="hidden" />
       <input class="mat-input" type="text" id="qt" placeholder="Search" onEnter="send()" onChange="chg()" autocomplete="off" maxlength="60">
      <input class="mat-input-s" type="submit" id="search" />
+
   </form>
   <footer>
     <div>
