@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>NAYN.SEARCH</title>
+  <!--FONT AWESOME-->
+  <script src="https://kit.fontawesome.com/4962560a50.js" crossorigin="anonymous"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26162600-9"></script>
 <script>
@@ -26,24 +28,33 @@ function chg(){
   <style>
     
 body{
-  background-color:#4589f0;
+  background-image:linear-gradient(to right,#4AC29A,#BDFFF3);
   font-family:"open Sans",sans-serif;
-  height:100%;
+  height:100vh;
   width:100%;
   overflow:hidden;
+  color:#3f3f44;
 }
 form{
-  width:600px;
-  margin-left:-300px;
+  width:500px;
   position:absolute;
   top:40%;
   left:50%;
+  transform: translate(-50%,-50%);
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 h1{
-  color:#fff;
   font-size:32px;
   margin-left:20px;
   margin-top:15px;
+  text-align: center;
+}
+h3{
+  margin-left:20px;
+  margin-top:15px;
+  text-align: center;
 }
 .mat-label {
   display: block;
@@ -57,15 +68,20 @@ h1{
   position: relative;
   background: transparent;
   width: 100%;
-  border: none;
   outline: none;
   padding: 8px;
   font-size: 16px;
   border:1px solid #fff;
   color:#fff;
   font-family: "Open Sans", sans-serif;
+  margin: 23px auto;
+  outline: none;
+  font-weight: bold;
+  border-radius: 10px;
 }
-
+.mat-input:focus{
+  border: 2px solid #e8e4e1;
+}
 .mat-div {
   padding: 30px 0 0 0;
   position: relative;
@@ -87,13 +103,32 @@ h1{
   background-color: #cccccc;
   transform: scaleX(0);
 }
+
+#search{
+  width:10%;
+  height:30px;
+  background-image:linear-gradient(to left,#4AC29A,#BDFFF3);
+  border:none;
+  appearance: none;
+  outline:none;
+  cursor:pointer;
+}
+#search img{
+  font-size:10px;
+}
   </style>
 </head>
+
 <body>
+  <h1>Temiz İçerik Arama Motoru!</h1>
+
   <form method="get" action="https://www.google.com/search" target="_blank">
+      <h3>Haber Sitelerinin Lafı Gereksiz Uzatmalarından Bıktınız mı?</h3>
       <input name="q" id="q" type="hidden" />
       <input class="mat-input" type="text" id="qt" placeholder="" onEnter="send()" onChange="chg()" autocomplete="off" maxlength="60">
-     <input type="submit" id="search" />
+     <button type="submit" id="search"><img src="./icons8-search-20.svg" alt="search-icon"></button>
   </form>
 </body>
 </html>
+
+
