@@ -18,6 +18,7 @@ button {
   border: none;
 }
 
+
 .searchbar {
   margin-bottom: auto;
   margin-top: auto;
@@ -29,6 +30,7 @@ button {
 
 .search_input {
   color: var(--thirdColor);
+
   border: 0;
   outline: 0;
   background: none;
