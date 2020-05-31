@@ -1,36 +1,49 @@
+:root {
+  --primaryColor: #ffffff;
+  --secondaryColor: #f2f2f2;
+  --thirdColor: #2d2d2d;
+  --textColor: #626569; 
+}
+
 body,
 html {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  background: #e74c3c !important;
+  background: var(--primaryColor) !important;
 }
+
+button {
+  border: none;
+}
+
 
 .searchbar {
   margin-bottom: auto;
   margin-top: auto;
   height: 60px;
-  background-color: #353b48;
+  background-color: var(--secondaryColor);
   border-radius: 30px;
   padding: 10px;
 }
 
 .search_input {
-  color: white;
+  color: var(--thirdColor);
+
   border: 0;
   outline: 0;
   background: none;
   padding: 0 10px;
   width: 300px;
-  caret-color: red;
+  caret-color: var(--textColor);
   line-height: 40px;
   transition: width 0.4s linear;
 }
 
 .searchbar:hover > .search_icon {
   background: white;
-  color: #e74c3c;
+  color: var(--thirdColor);
 }
 
 .search_icon {
@@ -41,7 +54,7 @@ html {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  color: white;
+  color: var(--thirdColor);
   text-decoration: none;
   background:transparent;
 }
@@ -50,7 +63,7 @@ html {
     height: 60px;
     line-height:60px;
     text-align:center;
-    background-color: #f2f2f2;
+    background-color: var(--secondaryColor);
     position: absolute;
     bottom: 0;
     width: 100%;
