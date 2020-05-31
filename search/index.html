@@ -1,50 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>NAYN.SEARCH</title>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-26162600-9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>NAYN.SEARCH</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-26162600-9"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-  gtag('config', 'UA-26162600-9');
-</script>
+      gtag('config', 'UA-26162600-9');
+    </script>
     <!-- CSS links -->
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css' />
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css' />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
-  <script>
-    function send() {
-document.form.submit();
-}
+    <script>
+      function send() {
+        document.form.submit();
+      }
 
-function chg(){
-  document.getElementById("q").value = document.getElementById("qt").value + " -site:trthaber.com -site:memurlar.net -site:yeniasir.com.tr -site:t24.com.tr -site:haber7.com -site:sondakika.com -site:yenisafak.com -site:posta.com.tr -site:milligazete.com.tr -site:birgun.net -site:yeniakit.com.tr -site:internethaber.com -site:ensonhaber.com -site:mynet.com -site:star.com.tr -site:takvim.com.tr -site:gazeteduvar.com.tr -site:haberturk.com -site:sozcu.com.tr -site:haberler.com -site:odatv.com -site:hurriyet.com.tr -site:milliyet.com.tr -site:sabah.com.tr -site:cumhuriyet.com.tr -site:cnnturk.com";
-}
-  </script>
-</head>
+      const BLOCKED_WEBSITES = [
+        'trthaber.com',
+        'memurlar.net',
+        'yeniasir.com.tr',
+        't24.com.tr',
+        'haber7.com',
+        'sondakika.com',
+        'yenisafak.com',
+        'posta.com.tr',
+        'milligazete.com.tr',
+        'birgun.net',
+        'yeniakit.com.tr',
+        'internethaber.com',
+        'ensonhaber.com',
+        'mynet.com',
+        'star.com.tr',
+        'takvim.com.tr',
+        'gazeteduvar.com.tr',
+        'haberturk.com',
+        'sozcu.com.tr',
+        'haberler.com',
+        'odatv.com',
+        'hurriyet.com.tr',
+        'milliyet.com.tr',
+        'sabah.com.tr',
+        'cumhuriyet.com.tr',
+        'cnnturk.com',
+      ];
 
-<body>
-      <div class="container h-100">
-    
+      function chg() {
+        document.getElementById('q').value =
+          document.getElementById('qt').value +
+          BLOCKED_WEBSITES.map((website) => '-site:' + website).join(' ');
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
         <div class="searchbar">
-          <form method="get" action="https://www.google.com/search" target="_blank">
-             <input name="q" id="q" type="hidden" />
-          <input class="search_input" type="text" id="qt" placeholder="aradığını bul" onEnter="send()" onChange="chg()" autocomplete="off" />
-          <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
+          <form
+            method="get"
+            action="https://www.google.com/search"
+            target="_blank"
+          >
+            <input name="q" id="q" type="hidden" />
+            <input
+              class="search_input"
+              type="text"
+              id="qt"
+              placeholder="aradığını bul"
+              onEnter="send()"
+              onChange="chg()"
+              autocomplete="off"
+            />
+            <button type="submit" class="search_icon">
+              <i class="fas fa-search"></i>
+            </button>
           </form>
         </div>
       </div>
     </div>
-<footer>
-    <div>
-      Haber sitelerinin çöplüğünden yılmışlar için arama motoru.
-    </div>
-  </footer>
-</body>
+    <footer>
+      <div>
+        Haber sitelerinin çöplüğünden yılmışlar için arama motoru.
+      </div>
+    </footer>
+  </body>
 </html>
