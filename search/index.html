@@ -65,6 +65,7 @@
       function chg() {
         document.getElementById('q').value =
           document.getElementById('qt').value +
+          ' ' +
           BLOCKED_WEBSITES.map((website) => '-site:' + website).join(' ');
       }
     </script>
