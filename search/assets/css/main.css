@@ -7,10 +7,12 @@
 
 /* switch to dark mode color */
 @media (prefers-color-scheme: dark) {
-  --primaryColor: #000002;
-  --secondaryColor: #1d1d1f;
-  --thirdColor: #c4c4c4;
-  --textColor: #c4c4c4; 
+  :root {
+    --primaryColor: #000002;
+    --secondaryColor: #1d1d1f;
+    --thirdColor: #c4c4c4;
+    --textColor: #c4c4c4; 
+  }
 }
 
 body,
