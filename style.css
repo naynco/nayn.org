@@ -155,7 +155,6 @@ nav .signin:hover,
 
 .service-block:hover {
    transform: scale(1.1);
-   cursor: pointer;
    border: 1px solid yellow;
 }
 
