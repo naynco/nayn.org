@@ -2,17 +2,26 @@
   --primaryColor: #ffffff;
   --secondaryColor: #f2f2f2;
   --thirdColor: #2d2d2d;
+  --fourthColor: #d7d7d7;
   --textColor: #626569; 
 }
 
-/* switch to dark mode color */
 @media (prefers-color-scheme: dark) {
   :root {
     --primaryColor: #000002;
     --secondaryColor: #1d1d1f;
     --thirdColor: #c4c4c4;
+    --fourthColor: #575757;
     --textColor: #c4c4c4; 
   }
+}
+
+[data-theme="light"] {
+  --primaryColor: #ffffff;
+  --secondaryColor: #f2f2f2;
+  --thirdColor: #2d2d2d;
+  --fourthColor: #d7d7d7;
+  --textColor: #626569; 
 }
 
 body,
@@ -28,6 +37,54 @@ button {
   border: none;
 }
 
+.search-suggests-wrapper{
+  width: 90%;
+  margin: 0 auto;
+}
+
+.search-suggests-list{
+  list-style: none;
+  margin-top: 16px;
+  padding: 0;
+}
+
+.search-suggests-item:first-child{
+  border-radius:4px 4px 0 0;
+}
+
+.search-suggests-item:last-child{
+  border-radius: 0 0 4px 4px;
+  border: none;
+}
+
+.search-suggests-item {
+  background-color: var(--secondaryColor);
+  color: var(--textColor);
+  font-size:16px;
+  border-bottom: 1px solid var(--fourthColor);
+  border-radius:0;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.search-suggests-item:hover {
+  background-color: var(--fourthColor);
+}
+
+.theme-switch-wrapper {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.theme-switch-wrapper input{
+  display: none;
+}
+
+.theme-switch-wrapper .theme-switch-icon {
+  color:var(--thirdColor);
+}
 
 .searchbar {
   margin-bottom: auto;
@@ -36,11 +93,11 @@ button {
   background-color: var(--secondaryColor);
   border-radius: 30px;
   padding: 10px;
+  border: 1px solid var(--fourthColor);
 }
 
 .search_input {
   color: var(--thirdColor);
-
   border: 0;
   outline: 0;
   background: none;
@@ -49,6 +106,7 @@ button {
   caret-color: var(--textColor);
   line-height: 40px;
   transition: width 0.4s linear;
+  font-size: 22px;
 }
 
 .searchbar:hover > .search_icon {
@@ -67,6 +125,7 @@ button {
   color: var(--thirdColor);
   text-decoration: none;
   background:transparent;
+  -webkit-text-stroke: 3px var(--secondaryColor);
 }
 
   footer {
