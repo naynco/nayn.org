@@ -1,117 +1,171 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="color-scheme" content="dark light">
-    <title>NAYN.SEARCH</title>
-    <link rel="icon" href="../favicon.png">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-26162600-9"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
 
-      gtag('config', 'UA-26162600-9');
-    </script>
-    <!-- CSS links -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
-    <script>
-      function send() {
-        document.form.submit();
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="color-scheme" content="dark light">
+  <title>NAYN.SEARCH</title>
+  <link rel="icon" href="../favicon.png">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26162600-9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
 
-      const BLOCKED_WEBSITES = [
-        'trthaber.com',
-        'memurlar.net',
-        'yeniasir.com.tr',
-        't24.com.tr',
-        'haber7.com',
-        'sondakika.com',
-        'yenisafak.com',
-        'posta.com.tr',
-        'milligazete.com.tr',
-        'birgun.net',
-        'yeniakit.com.tr',
-        'internethaber.com',
-        'ensonhaber.com',
-        'mynet.com',
-        'star.com.tr',
-        'takvim.com.tr',
-        'gazeteduvar.com.tr',
-        'haberturk.com',
-        'sozcu.com.tr',
-        'haberler.com',
-        'odatv.com',
-        'hurriyet.com.tr',
-        'milliyet.com.tr',
-        'sabah.com.tr',
-        'cumhuriyet.com.tr',
-        'cnnturk.com',
-        'aa.com.tr',
-        'ntv.com.tr',
-        'ahaber.com.tr',
-        'diken.com.tr',
-        'tr.sputniknews.com',
-        'yenicaggazetesi.com.tr',
-        'haber.sol.org.tr',
-        'tele1.com.tr',
-      ];
+    gtag('config', 'UA-26162600-9');
+  </script>
+  <!-- CSS links -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
+</head>
 
-      function chg() {
-        document.getElementById('q').value =
-          document.getElementById('qt').value +
-          ' ' +
-          BLOCKED_WEBSITES.map((website) => '-site:' + website).join(' ');
-      }
-    </script>
-  </head>
-
-  <body>
-    <div class="container h-100">
-      <div class="d-flex justify-content-center h-100">
-        <div class="searchbar">
-          <form
-            method="get"
-            action="https://www.google.com/search"
-            target="_blank"
-            class="form-flex"
-          >
-            <input name="q" id="q" type="hidden" />
-            <input
-              class="search_input"
-              type="text"
-              id="qt"
-              placeholder="aradığını bul"
-              onEnter="send()"
-              onChange="chg()"
-              autocomplete="off"
-            />
-            <button type="submit" class="search_icon">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
+<body onload="onLoad();">
+  <div class="theme-switch-wrapper">
+    <label class="theme-switch" for="theme-switcher">
+      <input type="checkbox" id="theme-switcher" />
+      <div class="theme-switcher-rounded"></div>
+      <i class="far fa-lightbulb fa-2x theme-switch-icon"></i>
+    </label>
+  </div>
+  <div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+      <div class="searchbar">
+        <form method="get" action="https://www.google.com/search" target="_blank" class="form-flex">
+          <button type="submit" class="search_icon">
+            <i class="fas fa-search fa-2x"></i>
+          </button>
+          <input name="q" id="q" type="hidden" />
+          <input class="search_input" type="text" id="qt" placeholder="Ara" onEnter="send()" onChange="chg()"
+            onkeyup="suggest()" autocomplete="off" />
+          <button type="submit" class="search_icon">
+            <i class="fas fa-angle-right fa-2x"></i>
+          </button>
+        </form>
+        <div class="search-suggests-wrapper">
+          <ul class="search-suggests-list">
+          </ul>
         </div>
       </div>
     </div>
-    <footer>
-      <div>
-        Haber sitelerinin çöplüğünden yılmışlar için arama motoru.
-      </div>
-    </footer>
-  </body>
+  </div>
+  <footer>
+    <div>
+      Haber sitelerinin çöplüğünden yılmışlar için arama motoru.
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+    var themeSwicther = document.querySelector('.theme-switch input');
+    themeSwicther.addEventListener('change', themeSwitch, false);
+
+    var scriptSource = '';
+    var suggestsList = document.querySelector('.search-suggests-list');
+    var search_query = document.getElementById('qt');
+
+    function themeSwitch() {
+      if (document.documentElement.getAttribute('data-theme') == 'light') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.querySelector('.theme-switch-icon').className = document.querySelector('.theme-switch-icon').className.replace('fas', 'far');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        document.querySelector('.theme-switch-icon').className = document.querySelector('.theme-switch-icon').className.replace('far', 'fas');
+      }
+    }
+
+    function onLoad() {
+      var offsetWidth = document.querySelector('body').clientWidth;
+      document.querySelector('.search_input').style.width = (offsetWidth * (offsetWidth > 1024 ? 0.32 : 0.62)) + 'px';
+      document.querySelector('.search_input').focus();
+
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    }
+
+    function querySuggestionCallback(suggestions) {
+      suggestsList.innerHTML = '';
+      suggestsList.innerHTML = suggestions[1].map((suggest) => '<li class="search-suggests-item" onclick="sSelect(this.innerText);">' + suggest[0] + '</li>').join('');
+    }
+
+    function suggest() {
+      var search_input_value = search_query.value;
+
+      if (search_input_value.length > 3) {
+        if (scriptSource != '') {
+          document.body.removeChild(scriptSource);
+        }
+
+        scriptSource = document.createElement('script');
+        scriptSource.src = 'https://www.google.com/complete/search?client=hp&hl=en&sugexp=msedr&gs_rn=62&gs_ri=hp&cp=1&gs_id=9c&q=' + search_input_value + '&xhr=t&callback=querySuggestionCallback';
+        document.body.appendChild(scriptSource);
+      } else {
+        console.log('burada')
+        suggestsList.innerHTML = '';
+      }
+    }
+
+    function sSelect(suggest) {
+      suggestsList.innerHTML = '';
+      search_query.value = suggest;
+      send();
+    }
+
+    function send() {
+      if (search_query.value.length == 0) return;
+      document.forms[0].submit();
+    }
+
+    const BLOCKED_WEBSITES = [
+      'trthaber.com',
+      'memurlar.net',
+      'yeniasir.com.tr',
+      't24.com.tr',
+      'haber7.com',
+      'sondakika.com',
+      'yenisafak.com',
+      'posta.com.tr',
+      'milligazete.com.tr',
+      'birgun.net',
+      'yeniakit.com.tr',
+      'internethaber.com',
+      'ensonhaber.com',
+      'mynet.com',
+      'star.com.tr',
+      'takvim.com.tr',
+      'gazeteduvar.com.tr',
+      'haberturk.com',
+      'sozcu.com.tr',
+      'haberler.com',
+      'odatv.com',
+      'hurriyet.com.tr',
+      'milliyet.com.tr',
+      'sabah.com.tr',
+      'cumhuriyet.com.tr',
+      'cnnturk.com',
+      'aa.com.tr',
+      'ntv.com.tr',
+      'ahaber.com.tr',
+      'diken.com.tr',
+      'tr.sputniknews.com',
+      'yenicaggazetesi.com.tr',
+      'haber.sol.org.tr',
+      'tele1.com.tr',
+    ];
+
+    function chg() {
+      document.getElementById('q').value = search_query.value
+        + ' ' + BLOCKED_WEBSITES.map((website) => '-site:' + website).join(' ');
+    }
+  </script>
+</body>
+
 </html>
