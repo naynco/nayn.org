@@ -154,3 +154,18 @@ button {
   .form-flex{
     display: flex;
   }
+}
+::-webkit-scrollbar
+{
+  width: 10px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: var(--thirdColor);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: var(--thirdColor);
