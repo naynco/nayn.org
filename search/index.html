@@ -2,170 +2,303 @@
 <html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <meta name="color-scheme" content="dark light">
-  <title>NAYN.SEARCH</title>
-  <link rel="icon" href="../favicon.png">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-26162600-9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="color-scheme" content="dark light">
+	<title>NAYN.SEARCH</title>
+	<link rel="icon" href="../favicon.png">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-26162600-9"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
 
-    gtag('config', 'UA-26162600-9');
-  </script>
-  <!-- CSS links -->
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
+		gtag('config', 'UA-26162600-9');
+	</script>
+	<!-- CSS links -->
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="./assets/css/main.css" />
 </head>
 
 <body onload="onLoad();">
-  <div class="theme-switch-wrapper">
-    <label class="theme-switch" for="theme-switcher">
-      <input type="checkbox" id="theme-switcher" />
-      <div class="theme-switcher-rounded"></div>
-      <i class="far fa-lightbulb fa-2x theme-switch-icon"></i>
-    </label>
-  </div>
-  <div class="container h-100">
-    <div class="d-flex justify-content-center h-100">
-      <div class="searchbar">
-        <form method="get" action="https://www.google.com/search" target="_blank" class="form-flex">
-          <button type="submit" class="search_icon">
-            <i class="fas fa-search fa-2x"></i>
-          </button>
-          <input name="q" id="q" type="hidden" />
-          <input class="search_input" type="text" id="qt" placeholder="Ara" onEnter="send()" onChange="chg()"
-            onkeyup="suggest()" autocomplete="off" />
-          <button type="submit" class="search_icon">
-            <i class="fas fa-angle-right fa-2x"></i>
-          </button>
-        </form>
-        <div class="search-suggests-wrapper">
-          <ul class="search-suggests-list">
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <footer>
-    <div>
-      Haber sitelerinin çöplüğünden yılmışlar için arama motoru.
-    </div>
-  </footer>
+	<div class="theme-switch-wrapper">
+		<label class="theme-switch" for="theme-switcher">
+			<input type="checkbox" id="theme-switcher" />
+			<div class="theme-switcher-rounded"></div>
+			<i class="far fa-lightbulb fa-2x theme-switch-icon"></i>
+		</label>
+	</div>
+	<div class="container h-100">
+		<div class="d-flex justify-content-center h-100">
+			<div class="searchbar">
+				<form method="get" action="https://www.google.com/search" target="_blank" class="form-flex">
+					<button type="submit" class="search_icon">
+						<i class="fas fa-search fa-2x"></i>
+					</button>
+					<input name="q" id="q" type="hidden" />
+					<input class="search_input" type="text" id="qt" placeholder="Ara" onEnter="send()" onChange="chg()" onkeyup="suggest()"
+					 autocomplete="off" />
+					<button type="submit" class="search_icon">
+						<i class="fas fa-angle-right fa-2x"></i>
+					</button>
+				</form>
+				<div class="search-suggests-wrapper">
+					<ul class="search-suggests-list">
+					</ul>
+				</div>
+			</div>
 
-  <script type="text/javascript">
-    var themeSwicther = document.querySelector('.theme-switch input');
-    themeSwicther.addEventListener('change', themeSwitch, false);
 
-    var scriptSource = '';
-    var suggestsList = document.querySelector('.search-suggests-list');
-    var search_query = document.getElementById('qt');
+			<div id="show">
+				<button onclick="showBlockeds()" style="background: transparent;"> <i class="fa fa-cog fa-2x theme-switch-icon"
+					 aria-hidden="true"></i></button>
+			</div>
 
-    function themeSwitch() {
-      if (document.documentElement.getAttribute('data-theme') == 'light') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        document.querySelector('.theme-switch-icon').className = document.querySelector('.theme-switch-icon').className.replace('fas', 'far');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        document.querySelector('.theme-switch-icon').className = document.querySelector('.theme-switch-icon').className.replace('far', 'fas');
-      }
-    }
+			<div id="blockedView" class="header" style="display:none">
+				<h2 style="margin:5px">Blocked Sites</h2>
+				<input type="text" id="blockInput" placeholder="example.com">
+				<button id="addBtn" onclick="blockWebSite()" class="addBtn"><i class="fa fa-plus fa-2x"></i></button>
+				<div id="blockeds">
+					<nav>
+						<ul id="blocked">
+						</ul>
+					</nav>
+				</div>
+			</div>
 
-    function onLoad() {
-      var offsetWidth = document.querySelector('body').clientWidth;
-      document.querySelector('.search_input').style.width = (offsetWidth * (offsetWidth > 1024 ? 0.32 : 0.62)) + 'px';
-      document.querySelector('.search_input').focus();
+		</div>
 
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-    }
+	</div>
+	<footer>
+		<div>
+			Haber sitelerinin çöplüğünden yılmışlar için arama motoru.
+		</div>
+		<div id="show">
+				<a target="_blank" rel="noopener noreferrer" href="https://github.com/naynco/nayn.org">
+					<i class="fab fa-github fa-2x" style="color:black"></i>
+				</a>
+			
+		</div>
+		
+	</footer>
 
-    function querySuggestionCallback(suggestions) {
-      suggestsList.innerHTML = '';
-      suggestsList.innerHTML = suggestions[1].map((suggest) => '<li class="search-suggests-item" onclick="sSelect(this.innerText);">' + suggest[0] + '</li>').join('');
-    }
+	<script type="text/javascript">
+		var themeSwicther = document.querySelector('.theme-switch input');
+		themeSwicther.addEventListener('change', themeSwitch, false);
 
-    function suggest() {
-      var search_input_value = search_query.value;
+		var scriptSource = '';
+		var suggestsList = document.querySelector('.search-suggests-list');
+		var search_query = document.getElementById('qt');
 
-      if (search_input_value.length > 3) {
-        if (scriptSource != '') {
-          document.body.removeChild(scriptSource);
-        }
+		function themeSwitch() {
+			if (document.documentElement.getAttribute('data-theme') == 'light') {
+				document.documentElement.setAttribute('data-theme', 'dark');
+				document.querySelector('.theme-switch-icon').className = document.querySelector('.theme-switch-icon').className.replace('fas', 'far');
+			} else {
+				document.documentElement.setAttribute('data-theme', 'light');
+				document.querySelector('.theme-switch-icon').className = document.querySelector('.theme-switch-icon').className.replace('far', 'fas');
+			}
+		}
 
-        scriptSource = document.createElement('script');
-        scriptSource.src = 'https://www.google.com/complete/search?client=hp&hl=en&sugexp=msedr&gs_rn=62&gs_ri=hp&cp=1&gs_id=9c&q=' + search_input_value + '&xhr=t&callback=querySuggestionCallback';
-        document.body.appendChild(scriptSource);
-      } else {
-        console.log('burada')
-        suggestsList.innerHTML = '';
-      }
-    }
+		function onLoad() {
+			var offsetWidth = document.querySelector('body').clientWidth;
+			document.querySelector('.search_input').style.width = (offsetWidth * (offsetWidth > 1024 ? 0.32 : 0.62)) + 'px';
+			document.querySelector('.search_input').focus();
 
-    function sSelect(suggest) {
-      suggestsList.innerHTML = '';
-      search_query.value = suggest;
-      send();
-    }
+			if (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) {
+				document.documentElement.setAttribute('data-theme', 'dark');
+			} else {
+				document.documentElement.setAttribute('data-theme', 'light');
+			}
+			var sites = window.localStorage.getItem("user-sites");
+			if (sites && sites.length > 0) {
+				BLOCKED_WEBSITES.clear();
+				JSON.parse(sites).forEach(site => {
+					BLOCKED_WEBSITES.add(site);
+				});
 
-    function send() {
-      if (search_query.value.length == 0) return;
-      document.forms[0].submit();
-    }
+			}
+			fillBlockedList();
+			saveBlockedSites();
 
-    const BLOCKED_WEBSITES = [
-      'trthaber.com',
-      'memurlar.net',
-      'yeniasir.com.tr',
-      't24.com.tr',
-      'haber7.com',
-      'sondakika.com',
-      'yenisafak.com',
-      'posta.com.tr',
-      'milligazete.com.tr',
-      'birgun.net',
-      'yeniakit.com.tr',
-      'internethaber.com',
-      'ensonhaber.com',
-      'mynet.com',
-      'star.com.tr',
-      'takvim.com.tr',
-      'gazeteduvar.com.tr',
-      'haberturk.com',
-      'sozcu.com.tr',
-      'haberler.com',
-      'odatv.com',
-      'hurriyet.com.tr',
-      'milliyet.com.tr',
-      'sabah.com.tr',
-      'cumhuriyet.com.tr',
-      'cnnturk.com',
-      'aa.com.tr',
-      'ntv.com.tr',
-      'ahaber.com.tr',
-      'diken.com.tr',
-      'tr.sputniknews.com',
-      'yenicaggazetesi.com.tr',
-      'haber.sol.org.tr',
-      'tele1.com.tr',
-    ];
+		}
 
-    function chg() {
-      document.getElementById('q').value = search_query.value
-        + ' ' + BLOCKED_WEBSITES.map((website) => '-site:' + website).join(' ');
-    }
-  </script>
+
+		function querySuggestionCallback(suggestions) {
+			suggestsList.innerHTML = '';
+			suggestsList.innerHTML = suggestions[1].map((suggest) => '<li class="search-suggests-item" onclick="sSelect(this.innerText);">' + suggest[0] + '</li>').join('');
+		}
+
+		function suggest() {
+			var search_input_value = search_query.value;
+
+			if (search_input_value.length > 3) {
+				if (scriptSource != '') {
+					document.body.removeChild(scriptSource);
+				}
+
+				scriptSource = document.createElement('script');
+				scriptSource.src = 'https://www.google.com/complete/search?client=hp&hl=en&sugexp=msedr&gs_rn=62&gs_ri=hp&cp=1&gs_id=9c&q=' + search_input_value + '&xhr=t&callback=querySuggestionCallback';
+				document.body.appendChild(scriptSource);
+			} else {
+				console.log('burada')
+				suggestsList.innerHTML = '';
+			}
+		}
+
+		function sSelect(suggest) {
+			suggestsList.innerHTML = '';
+			search_query.value = suggest;
+			send();
+		}
+
+		function send() {
+			if (search_query.value.length == 0) return;
+			document.forms[0].submit();
+		}
+
+		//default mapping. giving user an option to adding or removing from these websites. 
+		//unfortunately google search allows only blocking 32 website via -site keyword.
+		var BLOCKED_WEBSITES = new Set([
+			'trthaber.com',
+			'memurlar.net',
+			'yeniasir.com.tr',
+			't24.com.tr',
+			'haber7.com',
+			'sondakika.com',
+			'yenisafak.com',
+			'posta.com.tr',
+			'milligazete.com.tr',
+			'birgun.net',
+			'yeniakit.com.tr',
+			'internethaber.com',
+			'ensonhaber.com',
+			'mynet.com',
+			'star.com.tr',
+			'takvim.com.tr',
+			'gazeteduvar.com.tr',
+			'haberturk.com',
+			'sozcu.com.tr',
+			'haberler.com',
+			'odatv.com',
+			'hurriyet.com.tr',
+			'milliyet.com.tr',
+			'sabah.com.tr',
+			'cumhuriyet.com.tr',
+			'cnnturk.com',
+			'aa.com.tr',
+			'ntv.com.tr',
+			'ahaber.com.tr',
+			'diken.com.tr',
+			'tr.sputniknews.com',
+			'yenicaggazetesi.com.tr',
+			'haber.sol.org.tr',
+			'tele1.com.tr',
+		]);
+
+		function chg() {
+			document.getElementById('q').value = search_query.value
+				+ ' ' + BLOCKED_WEBSITES.map((website) => '-site:' + website).join(' ');
+		}
+
+		function blockWebSite() {
+
+			var site = document.getElementById("blockInput").value;
+			if (isValidWebSite(site)) {
+				if (BLOCKED_WEBSITES.size >= 32) {
+					console.log("too many sites");
+					alert("Can block only 32 sites for now.. Unblock one of them and add site after..");
+					return;
+				}
+				console.log("adding new site" + site)
+				BLOCKED_WEBSITES.add(site);
+			}
+			saveBlockedSites();
+			document.getElementById("blockInput").value = "";
+		}
+
+		function unblockedWebSite(site) {
+			if (isValidWebSite(site)) {
+				var deleted = BLOCKED_WEBSITES.delete(site);
+				if (deleted) {
+					console.log(" site deleted")
+				} else {
+					console.log("error on deleting site: " + site);
+				}
+
+			}
+			saveBlockedSites();
+		}
+		/*
+			@link for regular expression https://stackoverflow.com/a/42619368
+			not validates sites like example-example.com
+		*/
+		var regex = /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
+		function isValidWebSite(site) {
+			if (site !== null && regex.test(site)){
+				return true;
+			}
+			alert("Invalid web site. Check your input");
+			return false;
+		}
+
+		function fillBlockedList() {
+			// Create the list element:
+			var list = document.getElementById('blocked');
+			list.innerHTML = "";
+			BLOCKED_WEBSITES.forEach(site => {
+				var li = document.createElement("li");
+				var t = document.createTextNode(site);
+				li.appendChild(t);
+				document.getElementById("blocked").appendChild(li);
+
+				var span = document.createElement("SPAN");
+				var txt = document.createElement("i");
+				txt.className = "fa fa-times";
+				span.className = "remove";
+				span.appendChild(txt);
+				li.appendChild(span);
+
+			});
+
+			//create removefunctions
+			var rm = document.getElementsByClassName("remove");
+			var i;
+			for (i = 0; i < rm.length; i++) {
+				rm[i].onclick = function () {
+					var div = this.parentElement;
+					div.style.display = "none";
+					var site = div.textContent;
+					unblockedWebSite(site);
+				}
+			}
+
+		}
+		function saveBlockedSites() {
+
+			//not the smartest way to do it. might be direct conversion of the set..
+			var array = new Array(0);
+			BLOCKED_WEBSITES.forEach(site => {
+				array.push(site);
+			});
+
+			window.localStorage.setItem("user-sites", JSON.stringify(array));
+			fillBlockedList();
+		}
+		
+		function showBlockeds() {
+			var x = document.getElementById("blockedView");
+			if (x.style.display === "none") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
+		}
+	</script>
 </body>
 
 </html>
