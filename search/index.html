@@ -201,8 +201,9 @@
 		]);
 
 		function chg() {
-			document.getElementById('q').value = search_query.value
-				+ ' ' + BLOCKED_WEBSITES.map((website) => '-site:' + website).join(' ');
+			BLOCKED_WEBSITES.forEach((website) => search_query.value += ' -site:' + website + " ");
+			document.getElementById('q').value = search_query.value;
+			console.log("work");
 		}
 
 		function blockWebSite() {
