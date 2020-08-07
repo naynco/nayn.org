@@ -38,13 +38,13 @@
 		<div class="d-flex justify-content-center h-100">
 			<div class="searchbar">
 				<form method="get" action="https://www.google.com/search" target="_blank" class="form-flex">
-					<button type="submit" class="search_icon">
+					<button type="submit" class="search_icon" onclick="clearInput();">
 						<i class="fas fa-search fa-2x"></i>
 					</button>
 					<input name="q" id="q" type="hidden" />
 					<input class="search_input" type="text" id="qt" placeholder="Ara" onEnter="send()" onChange="chg()" onkeyup="suggest()"
 					 autocomplete="off" />
-					<button type="submit" class="search_icon">
+					<button type="submit" class="search_icon" onclick="clearInput();">
 						<i class="fas fa-angle-right fa-2x"></i>
 					</button>
 				</form>
@@ -61,7 +61,6 @@
 			</div>
 
 			<div id="blockedView" class="header" style="display:none">
-				<h2 style="margin:5px">Blocked Sites</h2>
 				<input type="text" id="blockInput" placeholder="example.com">
 				<button id="addBtn" onclick="blockWebSite()" class="addBtn"><i class="fa fa-plus fa-2x"></i></button>
 				<div id="blockeds">
@@ -70,6 +69,7 @@
 						</ul>
 					</nav>
 				</div>
+				<button title="Reset to Default Blocked Sites" id="defBtn" onclick="resetToDefault()" class="addBtn"><i class="fa fa-undo fa 2x"></i></i></button>
 			</div>
 
 		</div>
@@ -92,6 +92,14 @@
 		var themeSwicther = document.querySelector('.theme-switch input');
 		themeSwicther.addEventListener('change', themeSwitch, false);
 
+		//hide blocked site settings view when focus changed
+		document.addEventListener('mouseup', function(e) {
+			var container = document.getElementById('blockedView');
+			if (!container.contains(e.target)) {
+				container.style.display = 'none';
+			}
+		});
+
 		var scriptSource = '';
 		var suggestsList = document.querySelector('.search-suggests-list');
 		var search_query = document.getElementById('qt');
@@ -105,10 +113,17 @@
 				document.querySelector('.theme-switch-icon').className = document.querySelector('.theme-switch-icon').className.replace('far', 'fas');
 			}
 		}
+		function clearInput() {
+			//clear search bar
+			document.getElementById("qt").value = "";
+			search_query.value="";
+			suggestsList.innerHTML = '';
+		}
 
 		function onLoad() {
 			var offsetWidth = document.querySelector('body').clientWidth;
 			document.querySelector('.search_input').style.width = (offsetWidth * (offsetWidth > 1024 ? 0.32 : 0.62)) + 'px';
+			document.getElementById('blockeds').width = (offsetWidth * (offsetWidth > 1024 ? 0.32 : 0.62)) + 'px';
 			document.querySelector('.search_input').focus();
 
 			if (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches) {
@@ -155,7 +170,12 @@
 		function sSelect(suggest) {
 			suggestsList.innerHTML = '';
 			search_query.value = suggest;
+			document.getElementById("q").value = suggest;
+			bindBlockers(document.getElementById("q"));
 			send();
+
+			//clear search bar
+			clearInput();
 		}
 
 		function send() {
@@ -202,9 +222,17 @@
 			'tele1.com.tr',
 		]);
 
+		const defaultSites = new Set(BLOCKED_WEBSITES);
 		function chg() {
-			BLOCKED_WEBSITES.forEach((website) => search_query.value += ' -site:' + website + " ");
-			document.getElementById('q').value = search_query.value;
+			document.getElementById("q").value = search_query.value;
+			bindBlockers(document.getElementById("q"));
+			
+		}
+
+		function bindBlockers(element){
+			var tmp = element.value;
+			BLOCKED_WEBSITES.forEach((website) => tmp += ' -site:' + website + " ");
+			element.value = tmp;
 		}
 
 		function blockWebSite() {
@@ -289,6 +317,14 @@
 			});
 
 			window.localStorage.setItem("user-sites", JSON.stringify(array));
+			fillBlockedList();
+		}
+
+		function resetToDefault(){
+			console.log("clearing");
+			localStorage.clear();
+			//deep copy
+			BLOCKED_WEBSITES = new Set(defaultSites);
 			fillBlockedList();
 		}
 		
