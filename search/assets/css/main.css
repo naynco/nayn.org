@@ -3,7 +3,7 @@
   --secondaryColor: #f2f2f2;
   --thirdColor: #2d2d2d;
   --fourthColor: #d7d7d7;
-  --textColor: #626569; 
+  --textColor: #626569;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -12,7 +12,7 @@
     --secondaryColor: #1d1d1f;
     --thirdColor: #c4c4c4;
     --fourthColor: #575757;
-    --textColor: #c4c4c4; 
+    --textColor: #c4c4c4;
   }
 }
 
@@ -21,7 +21,7 @@
   --secondaryColor: #f2f2f2;
   --thirdColor: #2d2d2d;
   --fourthColor: #d7d7d7;
-  --textColor: #626569; 
+  --textColor: #626569;
 }
 
 body,
@@ -37,32 +37,42 @@ button {
   border: none;
 }
 
-.search-suggests-wrapper{
-  width: 90%;
+.search-suggests-wrapper {
+  width: calc(100% - 20px);
+  position: absolute;
+  z-index: 2;
   margin: 0 auto;
 }
 
-.search-suggests-list{
+.search-suggests-list {
   list-style: none;
   margin-top: 16px;
   padding: 0;
+  min-height: 0;
+  min-width: 0;
+  border: 0;
 }
 
-.search-suggests-item:first-child{
-  border-radius:4px 4px 0 0;
+.search-suggests-wrapper li:not(:empty) {
+  border-left: 1px solid var(--fourthColor);
+  border-right: 1px solid var(--fourthColor);
 }
 
-.search-suggests-item:last-child{
+.search-suggests-item:first-child {
+  border-radius: 4px 4px 0 0;
+  border-top: 1px solid var(--fourthColor);
+}
+
+.search-suggests-item:last-child {
   border-radius: 0 0 4px 4px;
-  border: none;
+  border-bottom: 1px solid var(--fourthColor);
 }
 
 .search-suggests-item {
   background-color: var(--secondaryColor);
   color: var(--textColor);
-  font-size:16px;
-  border-bottom: 1px solid var(--fourthColor);
-  border-radius:0;
+  font-size: 16px;
+  border-radius: 0;
   padding: 4px 10px;
   cursor: pointer;
 }
@@ -78,16 +88,16 @@ button {
   cursor: pointer;
 }
 
-.theme-switch-wrapper input{
+.theme-switch-wrapper input {
   display: none;
 }
 
 .theme-switch-wrapper .theme-switch-icon {
-  color:var(--thirdColor);
+  color: var(--thirdColor);
 }
 
-.settings-switch-icon{
-  color:var(--thirdColor);
+.settings-switch-icon {
+  color: var(--thirdColor);
 }
 
 .searchbar {
@@ -98,6 +108,7 @@ button {
   border-radius: 30px;
   padding: 10px;
   border: 1px solid var(--fourthColor);
+  position: relative;
 }
 
 .search_input {
@@ -128,67 +139,66 @@ button {
   border-radius: 50%;
   color: var(--thirdColor);
   text-decoration: none;
-  background:transparent;
+  background: transparent;
   -webkit-text-stroke: 3px var(--secondaryColor);
 }
 
-  footer {
-    height: 60px;
-    text-align:center;
-    background-color: var(--secondaryColor);
-    color: var(--textColor);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+footer {
+  height: 60px;
+  text-align: center;
+  background-color: var(--secondaryColor);
+  color: var(--textColor);
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
 
-  footer > div {
-    display: inline-flex;
-  }
+footer > div {
+  display: inline-flex;
+}
 
-  footer > div > ul > li{
-    list-style-type: none;
-    
-    margin-right: 2vh;
-  }
+footer > div > ul > li {
+  list-style-type: none;
 
-  .form-flex{
-    display: flex;
-  }
-  
-  #blockedView {
-    background:var(--primaryColor) !important;;
-    display: block;
-    position: absolute;
-    top: 50px;
-    right: 60px;
-  }
+  margin-right: 2vh;
+}
 
-  #blockInput{
-    margin-bottom: auto;
-    margin-top: auto;
-    height: 40px;
-    background-color: var(--secondaryColor);
-    border-radius: 30px;
-    padding: 10px;
-    border: 1px solid var(--fourthColor);
-  }
-  #show{
-    display: block;
-    position: absolute;
-    top: 10px;
-    right: 60px;
-  }
- 
+.form-flex {
+  display: flex;
+}
 
-  /*****************************************blockedlist and input***************************************/
+#blockedView {
+  background: var(--primaryColor) !important;
+  display: block;
+  position: absolute;
+  top: 50px;
+  right: 60px;
+}
 
-  /* Include the padding and border in an element's total width and height */
+#blockInput {
+  margin-bottom: auto;
+  margin-top: auto;
+  height: 40px;
+  background-color: var(--secondaryColor);
+  border-radius: 30px;
+  padding: 10px;
+  border: 1px solid var(--fourthColor);
+}
+#show {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 60px;
+}
+
+/*****************************************blockedlist and input***************************************/
+
+/* Include the padding and border in an element's total width and height */
 * {
-
   box-sizing: border-box;
 }
 
@@ -196,10 +206,15 @@ button {
 ul {
   margin: 0;
   padding: 0;
-   
 }
-nav ul{height:400px; width:100%;}
-nav ul{overflow:hidden; overflow-y:scroll;}
+nav ul {
+  height: 400px;
+  width: 100%;
+}
+nav ul {
+  overflow: hidden;
+  overflow-y: scroll;
+}
 
 /* Style the list items */
 ul li {
@@ -207,10 +222,10 @@ ul li {
   position: relative;
   padding: 12px 8px 12px 40px;
   list-style-type: none;
-  background:var(--primaryColor) !important;
+  background: var(--primaryColor) !important;
   font-size: 18px;
   transition: 0.2s;
-  
+
   /* make the list items unselectable */
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -223,7 +238,6 @@ ul li {
 /* Darker background-color on hover */
 ul li:hover {
   background-color: var(--fourthColor) !important;
-  
 }
 /* Style the remove button */
 .remove {
@@ -234,10 +248,9 @@ ul li:hover {
   padding: 12px 16px 12px 16px;
 }
 
-
 /* Style the header */
 .header {
-  background-color:#71bbf7;
+  background-color: #71bbf7;
   /*padding: 30px 40px;*/
   color: white;
   text-align: center;
@@ -282,24 +295,21 @@ input {
   align-items: center;
   color: var(--thirdColor);
   text-decoration: none;
-  background:transparent;
+  background: transparent;
 }
 
 .addBtn:hover {
-  background-color:var(--secondaryColor);
+  background-color: var(--secondaryColor);
 }
-::-webkit-scrollbar
-{
-  width: 10px;  /* for vertical scrollbars */
+::-webkit-scrollbar {
+  width: 10px; /* for vertical scrollbars */
   height: 12px; /* for horizontal scrollbars */
 }
 
-::-webkit-scrollbar-track
-{
+::-webkit-scrollbar-track {
   background: var(--thirdColor);
 }
 
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: var(--thirdColor);
 }
