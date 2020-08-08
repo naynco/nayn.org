@@ -1,0 +1,1 @@
+Sayfayı yönlendirmek için açtım
